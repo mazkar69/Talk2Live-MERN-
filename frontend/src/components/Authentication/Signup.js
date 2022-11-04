@@ -3,15 +3,16 @@ import { FormControl, FormLabel } from "@chakra-ui/form-control";
 import { Input, InputGroup, InputRightElement } from "@chakra-ui/input";
 import { VStack } from "@chakra-ui/layout";
 import { useToast } from "@chakra-ui/toast";
-import axios from "axios";
 import { useState } from "react";
-import { useHistory } from "react-router";
+// import { useHistory } from "react-router";
+import {  useNavigate } from "react-router";
 
 const Signup = () => {
   const [show, setShow] = useState(false);
   const handleClick = () => setShow(!show);
   const toast = useToast();
-  const history = useHistory();
+  // const history = useHistory();
+  const navigate = useNavigate();
 
   const [name, setName] = useState();
   const [email, setEmail] = useState();
@@ -22,6 +23,7 @@ const Signup = () => {
 
   const submitHandler = async () => {
     setPicLoading(true);
+
     if (!name || !email || !password || !confirmpassword) {
       toast({
         title: "Please Fill all the Feilds",
@@ -43,34 +45,63 @@ const Signup = () => {
       });
       return;
     }
-    console.log(name, email, password, pic);
+    // console.log(name, email, password, pic);
     try {
-      const config = {
+
+      
+      const data = await fetch("/api/user",{
+        method:"POST",
         headers: {
           "Content-type": "application/json",
+          'Accept':"application/json"
         },
-      };
-      const { data } = await axios.post(
-        "/api/user",
-        {
-          name,
-          email,
-          password,
-          pic,
-        },
-        config
-      );
+        body:JSON.stringify({name,email,password,pic})
+      })
       console.log(data);
-      toast({
-        title: "Registration Successful",
-        status: "success",
-        duration: 5000,
-        isClosable: true,
-        position: "bottom",
-      });
-      localStorage.setItem("userInfo", JSON.stringify(data));
-      setPicLoading(false);
-      history.push("/chats");
+      if(data.status === 201)
+      {
+        //Success
+        toast({
+          title: "Registration Successful",
+          status: "success",
+          duration: 5000,
+          isClosable: true,
+          position: "bottom",
+        });
+        localStorage.setItem("userInfo", JSON.stringify(data));
+        setPicLoading(false);
+        // history.push("/chats");
+        navigate('/chats')
+
+
+      }
+      else if(data.status === 400)
+      {
+        //Email already exist
+        toast({
+          title: "Email is already Registered",
+          status: "warning",
+          duration: 5000,
+          isClosable: true,
+          position: "bottom",
+        });
+        setPicLoading(false);
+      }
+      else{
+
+        //Some error Occour
+        toast({
+          title: "Something went wrong",
+          status: "warning",
+          duration: 5000,
+          isClosable: true,
+          position: "bottom",
+        });
+        setPicLoading(false);
+
+
+      }
+
     } catch (error) {
       toast({
         title: "Error Occured!",
@@ -85,6 +116,7 @@ const Signup = () => {
   };
 
   const postDetails = (pics) => {
+
     setPicLoading(true);
     if (pics === undefined) {
       toast({
@@ -97,7 +129,7 @@ const Signup = () => {
       return;
     }
     console.log(pics);
-    if (pics.type === "image/jpeg" || pics.type === "image/png") {
+    if (pics.type === "image/jpeg" || pics.type === "image/png" || pics.type === "image/jpg") {
       const data = new FormData();
       data.append("file", pics);
       data.append("upload_preset", "chat-app");
@@ -108,7 +140,10 @@ const Signup = () => {
       })
         .then((res) => res.json())
         .then((data) => {
+          //After uploading the img it will set the url to the state.
           setPic(data.url.toString());
+
+          //After uploading the img to the cloudinary it will print the url of the img on the console.
           console.log(data.url.toString());
           setPicLoading(false);
         })
@@ -134,6 +169,7 @@ const Signup = () => {
       <FormControl id="first-name" isRequired>
         <FormLabel>Name</FormLabel>
         <Input
+        id="name"
           placeholder="Enter Your Name"
           onChange={(e) => setName(e.target.value)}
         />
@@ -141,6 +177,7 @@ const Signup = () => {
       <FormControl id="email" isRequired>
         <FormLabel>Email Address</FormLabel>
         <Input
+        id="emaail"
           type="email"
           placeholder="Enter Your Email Address"
           onChange={(e) => setEmail(e.target.value)}
@@ -150,6 +187,7 @@ const Signup = () => {
         <FormLabel>Password</FormLabel>
         <InputGroup size="md">
           <Input
+          id="password"
             type={show ? "text" : "password"}
             placeholder="Enter Password"
             onChange={(e) => setPassword(e.target.value)}
@@ -165,6 +203,7 @@ const Signup = () => {
         <FormLabel>Confirm Password</FormLabel>
         <InputGroup size="md">
           <Input
+          id="cnf_pass"
             type={show ? "text" : "password"}
             placeholder="Confirm password"
             onChange={(e) => setConfirmpassword(e.target.value)}

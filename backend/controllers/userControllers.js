@@ -26,6 +26,7 @@ const generateToken = require("../config/generateToken");
 
 const registerUser = asyncHandler(async (req, res) => {
   const { name, email, password, pic } = req.body;
+  console.log(req.body);
 
   if (!name || !email || !password) {
     res.status(400);
@@ -77,7 +78,7 @@ const authUser = asyncHandler(async (req, res) => {
       isAdmin: user.isAdmin,
       pic: user.pic,
       token: generateToken(user._id),
-    });
+    }).status(200);
   } else {
     res.status(401);
     throw new Error("Invalid Email or Password");

@@ -13,7 +13,7 @@ const path = require("path");
 
 connectDB();
 
-
+app.use(express.urlencoded())
 app.use(express.json()); // to accept json data
 
 // app.get("/", (req, res) => {
@@ -49,8 +49,8 @@ app.use(errorHandler);
 const PORT = process.env.PORT;
 
 const server = app.listen(
-  5000,
-  console.log(`Server running on PORT ${5000}...`.yellow.bold)
+  4000,
+  console.log(`Server running on PORT ${4000}...`.yellow.bold)
 );
 
 // const io = require("socket.io")(server, {
