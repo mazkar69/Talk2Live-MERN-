@@ -68,7 +68,8 @@ const Signup = () => {
           isClosable: true,
           position: "bottom",
         });
-        localStorage.setItem("userInfo", JSON.stringify(data));
+        
+        localStorage.setItem("userInfo", JSON.stringify(await data.json()));
         setPicLoading(false);
         // history.push("/chats");
         navigate('/chats')

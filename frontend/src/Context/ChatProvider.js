@@ -15,6 +15,7 @@ const ChatProvider = ({ children }) => {
 
   useEffect(() => {
     const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+    // console.log("From contextProvider " + userInfo)
     setUser(userInfo);
 
     if (!userInfo) navigate("/");
@@ -23,16 +24,16 @@ const ChatProvider = ({ children }) => {
 
   return (
     <ChatContext.Provider
-      value={{
-        selectedChat,
-        setSelectedChat,
-        user,
-        setUser,
-        notification,
-        setNotification,
-        chats,
-        setChats,
-      }}
+    value={{
+      selectedChat,
+      setSelectedChat,
+      user,
+      setUser,
+      notification,
+      setNotification,
+      chats,
+      setChats,
+    }}
     >
       {children}
     </ChatContext.Provider>
