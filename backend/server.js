@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const connectDB = require("./config/db");
 require('dotenv').config()
-console.log(process.env.URL)
+// console.log(process.env.URL)
 
 const userRoutes = require("./routes/userRoutes");
 const chatRoutes = require("./routes/chatRoutes");
