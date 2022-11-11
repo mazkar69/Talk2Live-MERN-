@@ -1,29 +1,30 @@
 {
-  "name": "talk2live",
-  "version": "1.0.0",
-  "engines": {
-    "node": "16.14.1"
-  },
-  "description": "messaging app",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node backend/server.js",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix frontend && npm run build --prefix frontend"
-
-  },
-  "author": "AzKaaR",
-  "license": "ISC",
-  "dependencies": {
-    "@chakra-ui/icons": "^2.0.11",
-    "bcryptjs": "^2.4.3",
-    "colors": "^1.4.0",
-    "dotenv": "^16.0.3",
-    "express": "^4.18.2",
-    "express-async-handler": "^1.2.0",
-    "jsonwebtoken": "^8.5.1",
-    "mongoose": "^6.7.1",
-    "nodemon": "^2.0.20",
-    "socket.io": "^4.5.3"
+    "name": "talk2live",
+    "version": "1.0.0",
+    "engines": {
+      "node": "16.14.1"
+    },
+    "description": "messaging app",
+    "main": "index.js",
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1",
+      "start": "node backend/server.js",
+      "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix frontend && npm run build --prefix frontend"
+  
+    },
+    "author": "AzKaaR",
+    "license": "ISC",
+    "dependencies": {
+      "@chakra-ui/icons": "^2.0.11",
+      "bcryptjs": "^2.4.3",
+      "colors": "^1.4.0",
+      "dotenv": "^16.0.3",
+      "express": "^4.18.2",
+      "express-async-handler": "^1.2.0",
+      "jsonwebtoken": "^8.5.1",
+      "mongoose": "^6.7.1",
+      "nodemon": "^2.0.20",
+      "socket.io": "^4.5.3"
+    }
   }
-}
+  
