@@ -1,15 +1,15 @@
 import { Button } from "@chakra-ui/button";
 import { useDisclosure } from "@chakra-ui/hooks";
 import { Input } from "@chakra-ui/input";
-import { Box, Text, Flex } from "@chakra-ui/layout";
+import {  Text, Flex } from "@chakra-ui/layout";
 import {
     Menu,
     MenuButton,
     MenuList,
     MenuItem,
-    MenuItemOption,
-    MenuGroup,
-    MenuOptionGroup,
+    // MenuItemOption,
+    // MenuGroup,
+    // MenuOptionGroup,
     MenuDivider,
 } from '@chakra-ui/react'
 import {
@@ -21,7 +21,7 @@ import {
 } from "@chakra-ui/modal";
 import { Tooltip } from "@chakra-ui/tooltip";
 
-import { PhoneIcon, AddIcon, SearchIcon, ChevronDownIcon, BellIcon } from '@chakra-ui/icons';
+import {  SearchIcon, ChevronDownIcon, BellIcon } from '@chakra-ui/icons';
 
 import { Avatar } from "@chakra-ui/avatar";
 // import { useHistory } from "react-router-dom";
@@ -33,9 +33,9 @@ import { useToast } from "@chakra-ui/toast";
 import ChatLoading from "../ChatLoading";
 import { Spinner } from "@chakra-ui/spinner";
 import ProfileModal from "./ProfileModal";
-// import NotificationBadge from "react-notification-badge";
-// import { Effect } from "react-notification-badge";
-// import { getSender } from "../../config/ChatLogics";
+import NotificationBadge from "react-notification-badge";
+import { Effect } from "react-notification-badge";
+import { getSender } from "../../config/ChatLogics";
 import UserListItem from "../userAvatar/UserListItem";
 import { ChatState } from "../../Context/ChatProvider";
 
@@ -136,7 +136,6 @@ function SideDrawer() {
     return (
         <>
             <Flex
-                d="flex"
                 justifyContent="space-between"
                 alignItems="center"
                 bg="white"
@@ -147,25 +146,40 @@ function SideDrawer() {
                 <Tooltip label="Search Users to chat" hasArrow placement="bottom-end">
                     <Button variant="ghost" onClick={onOpen}>
                         <SearchIcon />
-                        <Text d={{ base: "none", md: "flex" }} px={4}>
+                        <Text display={{ base: "none", md: "flex" }} px={4}>
                             Search User
                         </Text>
                     </Button>
                 </Tooltip>
 
-                <Text fontSize="2xl" fontFamily="Work sans">
+                <Text  fontSize={{ base: '18px', md: '2xl', lg: '2xl' }} fontFamily="Work sans">
                     Talk-2-Live
                 </Text>
                 <div>
                     <Menu>
                         <MenuButton p={1}>
-                            {/* <NotificationBadge
+                            <NotificationBadge
                                 count={notification.length}
                                 effect={Effect.SCALE}
-                            /> */}
+                            />
                             <BellIcon fontSize="2xl" m={1} />
                         </MenuButton>
-                        {/* <MenuList></MenuList> */}
+                        <MenuList pl={2}>
+                            {!notification.length && "No New Messages"}
+                            {notification.map((notif) => (
+                                <MenuItem
+                                    key={notif._id}
+                                    onClick={() => {
+                                        setSelectedChat(notif.chat);
+                                        setNotification(notification.filter((n) => n !== notif));
+                                    }}
+                                >
+                                    {notif.chat.isGroupChat
+                                        ? `New Message in ${notif.chat.chatName}`
+                                        : `New Message from ${getSender(user, notif.chat.users)}`}
+                                </MenuItem>
+                            ))}
+                        </MenuList>
                     </Menu>
                     <Menu>
                         <MenuButton as={Button} bg="white" rightIcon={<ChevronDownIcon />}>
@@ -193,7 +207,7 @@ function SideDrawer() {
                 <DrawerContent>
                     <DrawerHeader borderBottomWidth="1px">Search Users</DrawerHeader>
                     <DrawerBody>
-                        <Flex d="flex" pb={2}>
+                        <Flex display="flex" pb={2}>
                             <Input
                                 placeholder="Search by name or email"
                                 mr={2}

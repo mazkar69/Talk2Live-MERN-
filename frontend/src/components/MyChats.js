@@ -47,7 +47,7 @@ const MyChats = ({ fetchAgain }) => {
 
   return (
     <Flex
-      d={{ base: selectedChat ? "none" : "flex", md: "flex" }}
+      display={{ base: selectedChat ? "none" : "flex", md: "flex" }}
       flexDir="column"
       alignItems="center"
       p={3}
@@ -59,7 +59,7 @@ const MyChats = ({ fetchAgain }) => {
       <Flex
         pb={3}
         px={3}
-        fontSize={{ base: "28px", md: "30px" }}
+        fontSize={{ base: "20px", md:25, lg: "27px" }}
         fontFamily="Work sans"
         d="flex"
         w="100%"
@@ -70,7 +70,7 @@ const MyChats = ({ fetchAgain }) => {
         <GroupChatModal>
           <Button
             d="flex"
-            fontSize={{ base: "17px", md: "10px", lg: "17px" }}
+            fontSize={{ base: "10px", md: "12px", lg: "15px" }}
             rightIcon={<AddIcon />}
           >
             New Group Chat
