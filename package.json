@@ -1,6 +1,9 @@
 {
   "name": "talk2live",
   "version": "1.0.0",
+  "engines": {
+    "node": "16.14.1"
+  },
   "description": "messaging app",
   "main": "index.js",
   "scripts": {
