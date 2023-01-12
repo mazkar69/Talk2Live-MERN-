@@ -35,7 +35,7 @@ const Login = () => {
       return;
     }
 
-    // console.log(email, password);
+    console.log(email, password);
     try {
 
 
@@ -48,7 +48,7 @@ const Login = () => {
         body:JSON.stringify({email,password})
       })
 
-      // console.log(data.status);
+      console.log(data.status);
       if(data.status === 200)
       {
 

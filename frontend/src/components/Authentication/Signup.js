@@ -57,7 +57,7 @@ const Signup = () => {
         },
         body:JSON.stringify({name,email,password,pic})
       })
-      console.log(data);
+      // console.log(data);
       if(data.status === 201)
       {
         //Success

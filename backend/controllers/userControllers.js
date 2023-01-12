@@ -7,8 +7,6 @@ const generateToken = require("../config/generateToken");
 //@access          Public
 
 const allUsers = asyncHandler(async (req, res) => {
-
-
   const keyword = req.query.search
     ? {
         $or: [
@@ -29,7 +27,6 @@ const allUsers = asyncHandler(async (req, res) => {
 const registerUser = asyncHandler(async (req, res) => {
 
   const { name, email, password, pic } = req.body;
-  console.log(req.body);
 
   if (!name || !email || !password) {
     res.status(400);
@@ -68,7 +65,10 @@ const registerUser = asyncHandler(async (req, res) => {
 //@description     Auth the user
 //@route           POST /api/users/login
 //@access          Public
+
+//This function wil run when user will login. "/login" This is the post route.
 const authUser = asyncHandler(async (req, res) => {
+  console.log("hitted");
   const { email, password } = req.body;
 
   const user = await User.findOne({ email });
