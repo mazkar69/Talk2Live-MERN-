@@ -7,11 +7,8 @@ const URL = "mongodb+srv://dazz:dazzazkar@cluster0.upe0ddb.mongodb.net/?retryWri
 const connectDB = async () => {
   try {
  
-    
-    const conn = await mongoose.connect(URL,{
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
+    mongoose.set('strictQuery', false);
+    const conn = await mongoose.connect(URL);
 
     console.log(`MongoDB Connected: ${conn.connection.host}`.cyan.underline);
   } catch (error) {
