@@ -20,6 +20,10 @@ app.use(express.json()); // to accept json data
 //   res.send("API Running!");
 // });
 
+app.get('/api/check',(req,res)=>{
+  console.log("Server is running....................")
+})
+
 app.use("/api/user", userRoutes);
 app.use("/api/chat", chatRoutes);
 app.use("/api/message", messageRoutes);
@@ -57,7 +61,7 @@ const server = app.listen(
 const io = require("socket.io")(server, {
   pingTimeout: 60000,
   cors: {
-    origin: "http://localhost:3000",
+    origin: "https://talk2live.adaptable.app/",
     // credentials: true,
   },
 });
